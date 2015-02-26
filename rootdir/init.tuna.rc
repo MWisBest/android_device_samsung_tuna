@@ -21,8 +21,8 @@ on init
 	mkdir /storage/usbdisk 0000 system system
 
 	# KSM
-	write /sys/kernel/mm/ksm/pages_to_scan 100
-	write /sys/kernel/mm/ksm/sleep_millisecs 500
+	write /sys/kernel/mm/ksm/pages_to_scan 256
+	write /sys/kernel/mm/ksm/sleep_millisecs 1500
 	write /sys/kernel/mm/ksm/run 1
 
 on post-fs-data
@@ -245,6 +245,10 @@ service iprenew_eth0 /system/bin/dhcpcd -n
 	class main
 	disabled
 	oneshot
+# LMK values
+# 6, 12, 26, 48, 64, 96 MB
+on property:sys.boot_completed=1
+ write /sys/module/lowmemorykiller/parameters/minfree 1536,3072,6656,12288,16384,24576
 
 # bugreport is triggered by holding down volume down, volume up and power
 service bugreport /system/bin/dumpstate -d -p -B \
