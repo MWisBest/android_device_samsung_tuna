@@ -68,6 +68,10 @@ PRODUCT_COPY_FILES += \
 #   have the in <= out*2 restriction, and is of a higher quality than the default resampler.
 PRODUCT_PROPERTY_OVERRIDES := \
 	af.resampler.quality=8
+	ro.ksm.default=1
+# SGX540 is slower with the scissor optimization enabled
+PRODUCT_PROPERTY_OVERRIDES += \
+ro.hwui.disable_scissor_opt=true
 
 PRODUCT_PACKAGES += \
 	tuna_hdcp_keys
